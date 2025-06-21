@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Tagesvers – Segenskalender</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f5fa;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+    }
+    h1 {
+      color: #6a5acd;
+    }
+    .verse-box {
+      background: #f0f0ff;
+      border-left: 4px solid #6a5acd;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 0.5rem;
+    }
+    .hidden {
+      display: none;
+    }
+    .date-label {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: -0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>✨ Segenskalender</h1>
+    <p>Jeden Tag ein Vers. Nur bis heute sichtbar.</p>
+
+    <div id="vers-container"></div>
+  </div>
+
+  <script>
+    const verseData = [
+      { date: '2025-06-17', text: 'Sei mutig und stark! Denn der Herr, dein Gott, ist bei dir. – Josua 1,9' },
+      { date: '2025-06-18', text: 'Du bist kostbar in meinen Augen. – Jesaja 43,4' },
+      { date: '2025-06-19', text: 'Ich habe dich je und je geliebt. – Jeremia 31,3' },
+      { date: '2025-06-20', text: 'Gott ist unsere Zuflucht und Stärke. – Psalm 46,2' },
+      { date: '2025-06-21', text: 'Freut euch im Herrn allezeit. – Philipper 4,4' }
+    ];
+
+    const today = new Date().toISOString().split('T')[0];
+    const container = document.getElementById('vers-container');
+
+    verseData.forEach(item => {
+      if (item.date <= today) {
+        const box = document.createElement('div');
+        box.className = 'verse-box';
+
+        const dateLabel = document.createElement('div');
+        dateLabel.className = 'date-label';
+        dateLabel.textContent = new Date(item.date).toLocaleDateString('de-DE', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+
+        const text = document.createElement('div');
+        text.textContent = item.text;
+
+        box.appendChild(dateLabel);
+        box.appendChild(text);
+        container.appendChild(box);
+      }
+    });
+  </script>
+</body>
+</html>
